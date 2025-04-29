@@ -48,6 +48,7 @@ async fn main() -> Result<()> {
 		.layer(middleware::from_fn_with_state(mm.clone(), mw_ctx_resolver))
 		.layer(CookieManagerLayer::new())
 		.layer(middleware::from_fn(mw_req_stamp_resolver))
+		// 원하는 경로를 찾지 못했을 경우 호출되는 페이지로..
 		.fallback_service(routes_static::serve_dir(&web_config().WEB_FOLDER));
 
 	// region:    --- Start Server
